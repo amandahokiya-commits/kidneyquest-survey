@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>腎隊友｜臨床營養師回饋表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F6F7F4; --paper:#FFFFFF; --ink:#1B2A2E; --ink-soft:#51635F;
+    --line:#E2E7E1; --green:#2F8F6B; --green-deep:#1E6B4F; --green-wash:#EAF4EE;
+    --amber:#D69A2D; --red:#C75450; --radius:14px;
+    --shadow:0 1px 2px rgba(27,42,46,.04), 0 8px 28px rgba(27,42,46,.06);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 120px;}
+
+  header.hero{padding:48px 0 22px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.12em;font-weight:500;color:var(--green-deep);margin-bottom:16px;}
+  .lights{display:inline-flex;gap:5px;}
+  .lights i{width:9px;height:9px;border-radius:50%;display:block;}
+  .lights i:nth-child(1){background:var(--green);}
+  .lights i:nth-child(2){background:var(--amber);}
+  .lights i:nth-child(3){background:var(--red);}
+  h1{font-family:"Noto Serif TC",serif;font-weight:700;font-size:clamp(26px,5vw,36px);line-height:1.25;margin:0 0 12px;}
+  .lede{font-size:15.5px;color:var(--ink-soft);margin:0;max-width:62ch;}
+
+  .tabs{display:flex;gap:8px;margin:26px 0 4px;border-bottom:1px solid var(--line);}
+  .tab{appearance:none;background:none;border:none;font-family:inherit;font-size:15.5px;font-weight:500;color:var(--ink-soft);padding:12px 18px;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;}
+  .tab[aria-selected="true"]{color:var(--green-deep);border-color:var(--green);}
+
+  section.block{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 26px;margin-top:20px;}
+  .sec-head{display:flex;gap:13px;align-items:baseline;margin-bottom:4px;}
+  .sec-num{font-family:"Noto Serif TC",serif;font-weight:700;font-size:14px;color:var(--green);border:1.5px solid var(--green);border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  h2{font-size:20px;font-weight:700;margin:0;}
+  .sec-note{font-size:13.5px;color:var(--ink-soft);margin:4px 0 20px 41px;}
+
+  .q{margin:0 0 24px;}
+  .q:last-child{margin-bottom:0;}
+  .q-label{font-weight:500;margin-bottom:11px;display:block;}
+  .q-label .req{color:var(--red);font-weight:700;margin-left:3px;}
+  .q-hint{font-size:13px;color:var(--ink-soft);font-weight:400;}
+
+  .note-field{background:var(--green-wash);border:1px dashed var(--green);border-radius:12px;padding:16px 16px 18px;}
+  .note-field .tag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--green);border-radius:6px;padding:2px 9px;margin-bottom:9px;}
+
+  .likert{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;}
+  .likert label{position:relative;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:11px 5px;text-align:center;font-size:12px;color:var(--ink-soft);transition:.15s;display:flex;flex-direction:column;align-items:center;gap:7px;min-height:72px;justify-content:center;}
+  .likert input{position:absolute;opacity:0;width:0;height:0;}
+  .likert .pip{width:19px;height:19px;border-radius:50%;border:2px solid #C4D0C8;background:#fff;transition:.15s;}
+  .likert label:hover{border-color:var(--green);}
+  .likert input:checked + .pip{border-color:var(--green);background:radial-gradient(circle at center,var(--green) 0 42%,#fff 46%);}
+  .likert label:has(input:checked){background:var(--green-wash);border-color:var(--green);}
+  .likert input:checked ~ .txt{color:var(--green-deep);font-weight:500;}
+
+  textarea,select,input[type=text]{width:100%;font-family:inherit;font-size:15px;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:#fff;resize:vertical;transition:.15s;}
+  textarea{min-height:80px;line-height:1.6;}
+  textarea:focus,select:focus,input[type=text]:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(47,143,107,.14);}
+  select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2351635F' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:38px;}
+
+  .choices{display:flex;flex-direction:column;gap:8px;}
+  .choices.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .choices label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-size:14.5px;transition:.15s;}
+  .choices label:hover{border-color:var(--green);}
+  .choices label:has(input:checked){background:var(--green-wash);border-color:var(--green);}
+  .choices input{margin-top:3px;accent-color:var(--green);width:16px;height:16px;flex:0 0 auto;}
+  .pick-hint{font-size:12.5px;color:var(--amber);font-weight:500;margin:-4px 0 9px;}
+  .other-input{margin-top:9px;}
+  .scale-ends{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-soft);margin-top:6px;padding:0 2px;}
+
+  .actions{margin-top:28px;display:flex;flex-wrap:wrap;gap:11px;align-items:center;}
+  button.act{font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;border:none;border-radius:11px;padding:13px 24px;transition:.12s;}
+  .btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(47,143,107,.26);}
+  .btn-primary:hover{filter:brightness(1.05);}
+  .btn-ghost{background:#fff;color:var(--green-deep);border:1px solid var(--green);}
+  .note-tiny{font-size:13px;color:var(--ink-soft);margin-top:12px;}
+
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:13px 22px;border-radius:12px;font-size:14.5px;opacity:0;pointer-events:none;transition:.25s;box-shadow:var(--shadow);z-index:50;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .hidden{display:none;}
+  footer.fin{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:38px;}
+  @media(max-width:560px){section.block{padding:22px 16px;}.choices.cols{grid-template-columns:1fr;}.likert label{font-size:11px;min-height:68px;}.sec-note{margin-left:0;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow"><span class="lights"><i></i><i></i><i></i></span> 臨床回饋表 · 研究用途</div>
+    <h1>腎隊友 CKD 飲食紀錄與追蹤摘要<br/>臨床營養師回饋表</h1>
+    <p class="lede">本表蒐集臨床營養師在看過腎隊友整理之個案飲食紀錄與追蹤摘要後的專業看法。本表填答對象為臨床營養師。不需實際操作系統，依您看完後的臨床判斷作答即可。</p>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-target="form-case">每案快速評估</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="form-summary">總結回饋（全部看完填一次）</button>
+  </div>
+
+  <!-- ============ 每案表 ============ -->
+  <form id="form-case">
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">案</span><h2>每案快速評估</h2></div>
+      <p class="sec-note">每看完「一位個案」的飲食紀錄與摘要後填一次，約 1 分鐘。</p>
+
+      <div class="q">
+        <label class="q-label" for="c_id">個案編號<span class="req">*</span></label>
+        <input type="text" id="c_id" name="case_id" placeholder="例：P012" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label">1. 這份飲食紀錄與摘要，是否有助您了解這位個案平常的飲食狀況？<span class="req">*</span></label>
+        <div class="choices">
+          <label><input type="radio" name="c_q1" value="有幫助" required /> 有幫助</label>
+          <label><input type="radio" name="c_q1" value="部分有幫助" /> 部分有幫助</label>
+          <label><input type="radio" name="c_q1" value="沒有幫助" /> 沒有幫助</label>
+          <label><input type="radio" name="c_q1" value="不確定" /> 不確定</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label">2. 從這份資料中，是否看到需要注意的營養問題或飲食風險？<span class="req">*</span></label>
+        <div class="choices">
+          <label><input type="radio" name="c_q2" value="有" required /> 有</label>
+          <label><input type="radio" name="c_q2" value="沒有" /> 沒有</label>
+          <label><input type="radio" name="c_q2" value="不確定" /> 不確定</label>
+        </div>
+        <div style="margin-top:12px">
+          <span class="q-hint">若有，主要是哪一類？（可複選）</span>
+          <div class="choices cols" style="margin-top:9px">
+            <label><input type="checkbox" name="c_q2risk" value="熱量不足" /> 熱量不足</label>
+            <label><input type="checkbox" name="c_q2risk" value="蛋白質不足" /> 蛋白質不足</label>
+            <label><input type="checkbox" name="c_q2risk" value="蛋白質偏高" /> 蛋白質偏高</label>
+            <label><input type="checkbox" name="c_q2risk" value="鈉攝取需注意" /> 鈉攝取需注意</label>
+            <label><input type="checkbox" name="c_q2risk" value="鉀攝取需注意" /> 鉀攝取需注意</label>
+            <label><input type="checkbox" name="c_q2risk" value="磷攝取需注意" /> 磷攝取需注意</label>
+            <label><input type="checkbox" name="c_q2risk" value="蔬果攝取不足" /> 蔬果攝取不足</label>
+            <label><input type="checkbox" name="c_q2risk" value="六大類不均衡" /> 六大類不均衡</label>
+            <label><input type="checkbox" name="c_q2risk" value="超加工食品需注意" /> 超加工食品需注意</label>
+            <label><input type="checkbox" name="c_q2risk" value="其他" /> 其他</label>
+          </div>
+          <input type="text" class="other-input hidden" data-other-for="c_q2risk" placeholder="其他，請說明" />
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label">3. 這位個案的紀錄與摘要，對臨床營養照護的參考價值？<span class="req">*</span></label>
+        <div class="likert" data-scale="value"></div>
+        <div class="scale-ends"><span>1 沒有參考價值</span><span>5 非常有價值</span></div>
+      </div>
+
+      <div class="q">
+        <div class="note-field">
+          <span class="tag">研究者速記</span>
+          <label class="q-label" for="c_note" style="margin-bottom:8px">營養師對此個案的即時建議或口頭回饋（由研究者填寫）</label>
+          <textarea id="c_note" name="researcher_note" placeholder="例：營養師希望能看到餐次分佈，判斷蛋白質是否集中單餐"></textarea>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="act btn-primary" data-submit="form-case">送出這一案</button>
+        <button type="button" class="act btn-ghost" data-download="form-case">下載這一案</button>
+      </div>
+      <p class="note-tiny">送出後表單會清空，方便接著評下一位個案。</p>
+    </section>
+  </form>
+
+  <!-- ============ 總結表 ============ -->
+  <form id="form-summary" class="hidden">
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">1</span><h2>基本資料</h2></div>
+      <p class="sec-note">全部個案看完後填一次。</p>
+
+      <div class="q">
+        <label class="q-label" for="s_name">姓名<span class="req">*</span></label>
+        <input type="text" id="s_name" name="s_name" placeholder="請填寫姓名" required />
+      </div>
+      <div class="q">
+        <label class="q-label" for="s_years">臨床營養工作年資<span class="req">*</span></label>
+        <select id="s_years" name="s_years" required>
+          <option value="">請選擇</option>
+          <option>未滿 1 年</option><option>1–3 年</option><option>4–6 年</option>
+          <option>7–10 年</option><option>10 年以上</option>
+        </select>
+      </div>
+      <div class="q">
+        <label class="q-label">是否曾照護 CKD 或透析病人？<span class="req">*</span></label>
+        <div class="choices">
+          <label><input type="radio" name="s_ckd" value="是" required /> 是</label>
+          <label><input type="radio" name="s_ckd" value="否" /> 否</label>
+        </div>
+      </div>
+      <div class="q">
+        <label class="q-label" for="s_n">本次大約查看幾位個案的飲食紀錄與摘要？</label>
+        <input type="text" id="s_n" name="s_count" placeholder="例：8 位" />
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">2</span><h2>對營養師工作流程的輔助性</h2></div>
+      <p class="sec-note">1＝沒有幫助，5＝很有幫助。</p>
+      <div data-likert-group="work"></div>
+
+      <div class="q">
+        <label class="q-label">這類摘要最可能協助營養師減少哪一部分工作負擔？（可複選）</label>
+        <div class="choices cols">
+          <label><input type="checkbox" name="s_burden" value="蒐集病人飲食資料" /> 蒐集病人飲食資料</label>
+          <label><input type="checkbox" name="s_burden" value="整理病人飲食紀錄" /> 整理病人飲食紀錄</label>
+          <label><input type="checkbox" name="s_burden" value="判斷主要飲食問題" /> 判斷主要飲食問題</label>
+          <label><input type="checkbox" name="s_burden" value="追蹤兩次門診之間飲食變化" /> 追蹤門診間飲食變化</label>
+          <label><input type="checkbox" name="s_burden" value="準備營養衛教內容" /> 準備營養衛教內容</label>
+          <label><input type="checkbox" name="s_burden" value="與病人或家屬溝通" /> 與病人/家屬溝通</label>
+          <label><input type="checkbox" name="s_burden" value="目前看不出能減少負擔" /> 目前看不出能減少</label>
+          <label><input type="checkbox" name="s_burden" value="其他" /> 其他</label>
+        </div>
+        <input type="text" class="other-input hidden" data-other-for="s_burden" placeholder="其他，請說明" />
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">3</span><h2>最有臨床價值的資訊</h2></div>
+      <p class="pick-hint">請選最多 3 項</p>
+      <div class="q">
+        <div class="choices cols" data-max="3">
+          <label><input type="checkbox" name="s_value" value="飲食照片" /> 飲食照片</label>
+          <label><input type="checkbox" name="s_value" value="餐點文字紀錄" /> 餐點文字紀錄</label>
+          <label><input type="checkbox" name="s_value" value="熱量" /> 熱量</label>
+          <label><input type="checkbox" name="s_value" value="蛋白質" /> 蛋白質</label>
+          <label><input type="checkbox" name="s_value" value="脂肪" /> 脂肪</label>
+          <label><input type="checkbox" name="s_value" value="碳水化合物" /> 碳水化合物</label>
+          <label><input type="checkbox" name="s_value" value="鈉" /> 鈉</label>
+          <label><input type="checkbox" name="s_value" value="鉀" /> 鉀</label>
+          <label><input type="checkbox" name="s_value" value="磷" /> 磷</label>
+          <label><input type="checkbox" name="s_value" value="六大類食物份數" /> 六大類食物份數</label>
+          <label><input type="checkbox" name="s_value" value="營養達標燈號" /> 營養達標燈號</label>
+          <label><input type="checkbox" name="s_value" value="食物加工程度標示(NOVA)" /> 食物加工程度標示(NOVA)</label>
+          <label><input type="checkbox" name="s_value" value="超加工食品提醒" /> 超加工食品提醒</label>
+          <label><input type="checkbox" name="s_value" value="血壓趨勢" /> 血壓趨勢</label>
+          <label><input type="checkbox" name="s_value" value="飲食變化趨勢" /> 飲食變化趨勢</label>
+          <label><input type="checkbox" name="s_value" value="營養師回饋紀錄" /> 營養師回饋紀錄</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">4</span><h2>限制與改善建議</h2></div>
+      <p class="pick-hint">第 1 題請選最多 3 項</p>
+      <div class="q">
+        <label class="q-label">若未來要將此類飲食紀錄與追蹤摘要提供臨床營養師參考，您認為系統端最需要具備哪些條件？</label>
+        <div class="choices cols" data-max="3">
+          <label><input type="checkbox" name="s_cond" value="熱量與主要營養素整理成摘要" /> 熱量與主要營養素整理成摘要</label>
+          <label><input type="checkbox" name="s_cond" value="可看到一段時間的飲食變化趨勢" /> 可看到一段時間的飲食變化趨勢</label>
+          <label><input type="checkbox" name="s_cond" value="可呈現每日或每週的達標狀況" /> 可呈現每日或每週的達標狀況</label>
+          <label><input type="checkbox" name="s_cond" value="可標示需要營養師優先注意的項目" /> 可標示需營養師優先注意的項目</label>
+          <label><input type="checkbox" name="s_cond" value="可搭配近期生化值一起判讀" /> 可搭配近期生化值一起判讀</label>
+          <label><input type="checkbox" name="s_cond" value="可保留營養師回饋紀錄" /> 可保留營養師回饋紀錄</label>
+          <label><input type="checkbox" name="s_cond" value="可快速查看原始飲食照片與文字紀錄" /> 可快速查看原始照片與文字紀錄</label>
+          <label><input type="checkbox" name="s_cond" value="可清楚呈現紀錄日期與餐別" /> 可清楚呈現紀錄日期與餐別</label>
+          <label><input type="checkbox" name="s_cond" value="可與門診或個案管理流程銜接" /> 可與門診或個案管理流程銜接</label>
+          <label><input type="checkbox" name="s_cond" value="個資與資料安全規範清楚" /> 個資與資料安全規範清楚</label>
+          <label><input type="checkbox" name="s_cond" value="其他" /> 其他</label>
+        </div>
+        <input type="text" class="other-input hidden" data-other-for="s_cond" placeholder="其他，請說明" />
+      </div>
+
+      <div class="q">
+        <label class="q-label">您認為腎隊友飲食紀錄與追蹤摘要，未來比較適合扮演哪一種角色？（可複選）</label>
+        <div class="choices cols">
+          <label><input type="checkbox" name="s_role" value="病人飲食紀錄工具" /> 病人飲食紀錄工具</label>
+          <label><input type="checkbox" name="s_role" value="營養師判讀前的資料整理工具" /> 營養師判讀前的資料整理工具</label>
+          <label><input type="checkbox" name="s_role" value="門診前營養評估輔助資料" /> 門診前營養評估輔助資料</label>
+          <label><input type="checkbox" name="s_role" value="門診中營養諮詢參考資料" /> 門診中營養諮詢參考資料</label>
+          <label><input type="checkbox" name="s_role" value="門診後飲食追蹤工具" /> 門診後飲食追蹤工具</label>
+          <label><input type="checkbox" name="s_role" value="病人自我管理輔助工具" /> 病人自我管理輔助工具</label>
+          <label><input type="checkbox" name="s_role" value="家屬協助照護工具" /> 家屬協助照護工具</label>
+          <label><input type="checkbox" name="s_role" value="營養衛教輔助工具" /> 營養衛教輔助工具</label>
+          <label><input type="checkbox" name="s_role" value="個案管理追蹤工具" /> 個案管理追蹤工具</label>
+          <label><input type="checkbox" name="s_role" value="其他" /> 其他</label>
+        </div>
+        <input type="text" class="other-input hidden" data-other-for="s_role" placeholder="其他，請說明" />
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">5</span><h2>整體評價與建議</h2></div>
+      <div data-likert-group="overall"></div>
+
+      <div class="q">
+        <label class="q-label" for="s_improve">這類摘要最需要改善的地方是什麼？</label>
+        <textarea id="s_improve" name="s_improve"></textarea>
+      </div>
+      <div class="q">
+        <label class="q-label" for="s_oneline">請用一句話描述您對腎隊友飲食紀錄與追蹤摘要的整體看法：</label>
+        <textarea id="s_oneline" name="s_oneline" style="min-height:60px"></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="act btn-primary" data-submit="form-summary">送出總結回饋</button>
+        <button type="button" class="act btn-ghost" data-download="form-summary">下載我的作答</button>
+      </div>
+      <p class="note-tiny">感謝您撥冗協助，作答僅供本研究團隊分析使用。</p>
+    </section>
+  </form>
+
+  <footer class="fin">腎隊友 · CKD 數位營養照護研究　|　本表僅供學術研究使用</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== 設定：填入 Apps Script 網址即自動寫入 Google Sheets；留空則用下載 ====== */
+const ENDPOINT = "https://script.google.com/macros/s/AKfycby9_hRIxsNvque8cLDhG341Y6CithxLI4oHxH0VUR16xn16nNCh71Mteq-SzWYUJsBudA/exec"; // 例： "https://script.google.com/macros/s/XXXX/exec"
+
+const SCALE5 = ["1","2","3","4","5"];
+/* 每案表第 3 題量表 */
+document.querySelectorAll('[data-scale="value"]').forEach(slot=>{
+  const labels=["沒有價值","有限","普通","有價值","非常有價值"];
+  SCALE5.forEach((v,i)=>{
+    const l=document.createElement("label");
+    l.innerHTML=`<input type="radio" name="c_q3" value="${v}" required><span class="pip"></span><span class="txt">${v}</span>`;
+    slot.appendChild(l);
+  });
+});
+
+/* 總結表 Likert 題庫 */
+const LIKERT={
+  work:[
+    ["s_w1","系統整理的飲食紀錄與營養摘要，有助於我較快掌握病人的飲食狀況"],
+    ["s_w2","系統呈現的熱量、蛋白質、脂肪、碳水、鈉、鉀、磷及達標狀況，有助於我判斷營養衛教重點"],
+    ["s_w3","若門診前即可看到此類飲食追蹤摘要，有助於提升門診營養照護流程效率"]
+  ],
+  overall:[
+    ["s_o1","整體而言，腎隊友摘要作為臨床營養照護輔助資料是可行的"],
+    ["s_o2","整體而言，腎隊友摘要具有臨床應用潛力"],
+    ["s_o3","此類摘要的資料呈現清楚易讀"]
+  ]
+};
+document.querySelectorAll("[data-likert-group]").forEach(slot=>{
+  const key=slot.getAttribute("data-likert-group");
+  (LIKERT[key]||[]).forEach(([name,text])=>{
+    const q=document.createElement("div");q.className="q";
+    q.innerHTML=`<label class="q-label">${text}<span class="req">*</span></label>`;
+    const row=document.createElement("div");row.className="likert";
+    SCALE5.forEach(v=>{const l=document.createElement("label");
+      l.innerHTML=`<input type="radio" name="${name}" value="${v}" required><span class="pip"></span><span class="txt">${v}</span>`;
+      row.appendChild(l);});
+    q.appendChild(row);
+    const ends=document.createElement("div");ends.className="scale-ends";
+    ends.innerHTML="<span>1 沒有幫助/不同意</span><span>5 很有幫助/同意</span>";
+    q.appendChild(ends);slot.appendChild(q);
+  });
+});
+
+/* 複選上限 */
+document.querySelectorAll("[data-max]").forEach(g=>{
+  const max=+g.getAttribute("data-max");
+  g.addEventListener("change",()=>{
+    const checked=g.querySelectorAll("input:checked");
+    if(checked.length>max){checked[checked.length-1].checked=false;toast(`最多選 ${max} 項`);}
+  });
+});
+
+/* 「其他」勾選時跳出輸入格 */
+document.querySelectorAll('input[type=checkbox][value="其他"]').forEach(cb=>{
+  cb.addEventListener("change",()=>{
+    const inp=document.querySelector('.other-input[data-other-for="'+cb.name+'"]');
+    if(!inp)return;
+    inp.classList.toggle("hidden",!cb.checked);
+    if(cb.checked)inp.focus(); else inp.value="";
+  });
+});
+
+/* 分頁切換 */
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected","false"));
+    tab.setAttribute("aria-selected","true");
+    document.getElementById("form-case").classList.toggle("hidden",tab.dataset.target!=="form-case");
+    document.getElementById("form-summary").classList.toggle("hidden",tab.dataset.target!=="form-summary");
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2500);}
+
+function collect(form,type){
+  const data={_form:type,_submittedAt:new Date().toISOString()};
+  form.querySelectorAll("select,textarea,input[type=text]").forEach(el=>{if(el.name)data[el.name]=el.value.trim();});
+  form.querySelectorAll("input[type=radio]:checked").forEach(el=>data[el.name]=el.value);
+  const cb={};form.querySelectorAll("input[type=checkbox]:checked").forEach(el=>{
+    let val=el.value;
+    if(val==="其他"){
+      const inp=form.querySelector('.other-input[data-other-for="'+el.name+'"]');
+      if(inp&&inp.value.trim())val="其他："+inp.value.trim();
+    }
+    (cb[el.name]=cb[el.name]||[]).push(val);
+  });
+  Object.keys(cb).forEach(k=>data[k]=cb[k].join("｜"));
+  return data;
+}
+function firstMissing(form){
+  for(const el of form.querySelectorAll("[required]")){
+    if(el.type==="radio"){if(!form.querySelector(`input[name="${el.name}"]:checked`))return form.querySelector(`input[name="${el.name}"]`).closest(".q");}
+    else if(!el.value.trim())return el.closest(".q");
+  }
+  return null;
+}
+function download(data,type){
+  const lines=Object.entries(data).map(([k,v])=>`${k}\t${v}`).join("\n");
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([lines],{type:"text/plain;charset=utf-8"}));
+  a.download=`腎隊友回饋_${type}_${(data.case_id||new Date().toISOString().slice(0,10))}.txt`;
+  a.click();URL.revokeObjectURL(a.href);
+}
+
+document.querySelectorAll("[data-download]").forEach(b=>b.addEventListener("click",()=>{
+  const form=document.getElementById(b.dataset.download);
+  download(collect(form,b.dataset.download),b.dataset.download);toast("已下載作答");
+}));
+
+document.querySelectorAll("[data-submit]").forEach(b=>b.addEventListener("click",async()=>{
+  const form=document.getElementById(b.dataset.submit);
+  const miss=firstMissing(form);
+  if(miss){miss.scrollIntoView({behavior:"smooth",block:"center"});toast("還有必填題未完成");return;}
+  const data=collect(form,b.dataset.submit);
+  if(ENDPOINT){
+    try{await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
+      toast("已送出，感謝！");
+      if(b.dataset.submit==="form-case"){form.reset();document.getElementById("c_id").focus();}
+      else{form.reset();}
+      window.scrollTo({top:0,behavior:"smooth"});
+    }catch(e){toast("送出失敗，請改用下載");}
+  }else{download(data,b.dataset.submit);toast("已產生作答檔，請回傳研究團隊");}
+}));
+</script>
+</body>
+</html>
